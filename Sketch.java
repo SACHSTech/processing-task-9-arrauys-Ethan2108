@@ -65,7 +65,6 @@ public class Sketch extends PApplet {
     }
   }
 
-
   // snow fall
   public void snowFall() {
     for (int i = 0; i < circleY.length; i++) {
@@ -78,6 +77,4 @@ public class Sketch extends PApplet {
       }
      }
   }
-
-
-  }
+}
