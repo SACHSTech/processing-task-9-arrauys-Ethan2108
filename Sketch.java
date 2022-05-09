@@ -19,12 +19,13 @@ public class Sketch extends PApplet {
    public float[] circleY = new float[(int)width/7];
    public float[] snowPile = new float[(int)width/7];
 	
+   boolean snowClicked;
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(500, 500);
+    size(600, 600);
   }
 
   /** 
@@ -75,6 +76,17 @@ public class Sketch extends PApplet {
         circleY[i] = 0;
         snowPile[i]+=2;
       }
-     }
+    }
+}
+
+// mouse inputs
+public void mousePressed(){
+
+  snowClicked = true;
+}
+
+public void mouseReleased(){
+  
+  snowClicked = false;
   }
 }
