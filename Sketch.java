@@ -17,15 +17,24 @@ public class Sketch extends PApplet {
    public int min = 165*heightScale;
  
    public float[] circleY = new float[(int)width/7];
-   public float[] snowPile = new float[(int)width/7];
 	
    boolean snowClicked;
+   boolean playerUp;
+   boolean playerLeft;
+   boolean playerDown;
+   boolean playerRight;
+   float playerX = 0;
+   float playerY = 380;
+   float playerWidth = 30;
+   float playerHeight = 30;
+   int intLives = 3;
+   int intGameOver = 0;
   /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
 	// put your size call here
-    size(600, 600);
+    size(400, 400);
   }
 
   /** 
@@ -35,9 +44,6 @@ public class Sketch extends PApplet {
   public void setup() {
     for (int i = 0; i < circleY.length; i++) {
       circleY[i] = random(height);
-    }
-    for (int i = 0; i < snowPile.length; i++) {
-      snowPile[i] = r.nextInt((max - min) + 1) + min;
     }
   }
 
@@ -74,19 +80,52 @@ public class Sketch extends PApplet {
       circleY[i]+=speed;
       if (circleY[i] > height) {
         circleY[i] = 0;
-        snowPile[i]+=2;
       }
     }
 }
 
-// mouse inputs
-public void mousePressed(){
+  public void drawPlayer(){
+    // drawing blue circle and lives
+    for (int i = 1; i <= intLives; i++){
+      fill(255, 0, 0);
+      // lives
+      rect ((i + 8) * 30, 15, 30, 30);
+    }
+      fill(0, 0, 255);
+      ellipse(playerX, playerY, playerWidth, playerHeight);
 
-  snowClicked = true;
+    if(intLives == 0){
+      intGameOver = 3;
+  }
 }
 
-public void mouseReleased(){
-  
-  snowClicked = false;
+   // moving blue circle
+   if (playerUp){
+    playerY -= 3;
   }
+  if (playerDown){
+    playerY += 3;
+  }
+  if (playerLeft){   
+    playerX -= 3;
+  }
+  if (playerRight){
+    playerX += 3;
+}
+
+  public void keyPressed() {
+    if (key == 'a'){
+      playerLeft = true;
+    }
+    if (key == 's'){
+      playerDown = true;
+    }
+    if (key == 'd'){
+      playerRight = true;
+    }
+    else if (key == 'w'){
+      playerUp = true;
+    }
+  }
+}
 }
