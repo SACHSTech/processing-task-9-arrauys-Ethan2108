@@ -2,79 +2,173 @@ import processing.core.PApplet;
 
 public class Sketch extends PApplet {
 
-  float[] circleY = new float[30];
-  float[] circleX = new float[30];
-  boolean[] ballHideStatus = new boolean[30];
+  float[] circleX = new float[40];
+  float[] circleY = new float[40];
+  boolean[] ballHideStatus = new boolean[40];
 
-  int intSnowballSpeed = 5;
+  int intSpeed = 4;
 
-  float playerX = 350;
-  float playerY = 350;
+  float playerX = 400;
+  float playerY = 400;
 
-  boolean playerStatus = true;
-  boolean left;
-  boolean right;
-  boolean up;
-  boolean down;
-  int intLives = 3;
+  boolean upPress = false;
+  boolean downPress = false;
+  boolean leftPress = false;
+  boolean rightPress = false;
+
+  boolean alive = true;
+  int lives = 3;
 
   boolean mouseClicked = false;
 
-	 /**
+  /**
    * Called once at the beginning of execution, put your size all in this method
    */
   public void settings() {
-    // put your size call here
-      size(700, 700);
-    }
-  
-    /** 
-     * Called once at the beginning of execution.  Add initial set up
-     * values here i.e background, stroke, fill etc.
-     */
-    public void setup() {
-      for (int i = 0; i < circleY.length; i++) {
-        circleY[i] = random(height);
-        circleX[i] = random(width);
-        ballHideStatus[i] = false;
-      }
-    }
-    
-  
-    /**
-     * Called repeatedly, anything drawn to the screen goes here
-     */
-    public void draw() {
-      if (playerStatus == true) {
-        background(0);
-      
-        fill(255);
-  
-        // draw snowballs to the screen if ballHideStatus is false
-        for (int i = 0; i < circleY.length; i++) {
-          if (ballHideStatus[i] == false) {
-            ellipse(circleX[i], circleY[i], 50, 50);
-  
-            circleY[i] += intSnowballSpeed;
-          }
-      
-          // resets snowball once it reaches end of screen
-          if (circleY[i] > height - 25) {
-            circleY[i] = 0;
-          }
-  
-          // if player circle collides with snowball, stop drawing snowball to screen and remove 1 life
-          if (dist(playerX, playerY, circleX[i], circleY[i]) <= 37.5 && ballHideStatus[i] == false) {
-            ballHideStatus[i] = true;
-            intLives--;
-          }
-          
-          // if snowball is clicked, stop drawing snowball to screen
-          if (dist(mouseX, mouseY, circleX[i], circleY[i]) <= 25 && mouseClicked) {
-              ballHideStatus[i] = true;
-          }
-          
-        }
+	// put your size call here
+    size(800, 600);
+  }
+
+  /** 
+   * Called once at the beginning of execution.  Add initial set up
+   * values here i.e background, stroke, fill etc.
+   */
+  public void setup() {
+    for (int i = 0; i < circleY.length; i++) {
+      circleY[i] = random(height);
+      circleX[i] = random(width);
+      ballHideStatus[i] = false;
     }
   }
+
+  /**
+   * Called repeatedly, anything drawn to the screen goes here
+   */
+  public void draw() {
+
+    // check to see if player is still alive
+    if (alive == true) {
+      background(0);
+    
+      fill(255);
+
+      // draw snowballs to the screen if ballHideStatus is false
+      for (int i = 0; i < circleY.length; i++) {
+        if (ballHideStatus[i] == false) {
+          ellipse(circleX[i], circleY[i], 40, 40);
+
+          circleY[i] += intSpeed;
+        }
+    
+        // resets snowball once it reaches end of screen
+        if (circleY[i] > height - 25) {
+          circleY[i] = 0;
+        }
+
+        // if player circle collides with snowball, stop drawing snowball to screen and remove 1 life
+        if (dist(playerX, playerY, circleX[i], circleY[i]) <= 37.5 && ballHideStatus[i] == false) {
+          ballHideStatus[i] = true;
+          lives--;
+        }
+        
+        // if snowball is clicked, stop drawing snowball to screen
+        if (dist(mouseX, mouseY, circleX[i], circleY[i]) <= 25 && mouseClicked) {
+            ballHideStatus[i] = true;
+        }
+        
+      }
+
+      fill(168, 209, 223);
+
+      // draw player circle
+      ellipse(playerX, playerY, 25, 25);
+      
+      // keyboard controls for player using w, a, s, d
+      if (leftPress) {
+        playerX += -5;
+      }
+      if (rightPress) {
+        playerX += 5;
+      }
+      if (upPress) {
+        playerY += -5;
+      }
+      if (downPress) {
+        playerY += 5;
+      }
+  
+      fill(246, 7, 17);
+
+      // draw three squares to indicate player intLives
+      for (int i = 1; i <= lives; i++) {
+        rect(70 * i, 50, 50, 50);
+      }
+
+      if (lives == 0) {
+        alive = false;
+      }
+    }
+
+    // screen clears to white when all lives are lost
+    else {
+      background(255);
+    }
+  }
+
+  
+  // define other methods down here.
+
+  public void keyPressed() {
+    if (key == 'a')  {
+      leftPress = true;
+    }
+    else if (key == 'd') {
+      rightPress = true;
+    }
+    else if (key == 'w') {
+      upPress = true;
+    }
+    else if (key == 's') {
+      downPress = true;
+    }
+
+    if (keyCode == UP) {
+      intSpeed = 2;
+    }
+    if (keyCode == DOWN) {
+      intSpeed = 6;
+    }
+  }
+
+  public void keyReleased() {
+    if (key == 'a')  {
+      leftPress = false;
+    }
+    else if (key == 'd') {
+      rightPress = false;
+    }
+    else if (key == 'w') {
+      upPress = false;
+    }
+    else if (key == 's') {
+      downPress = false;
+    }
+
+    if (keyCode == UP) {
+      intSpeed = 2;
+    }
+    
+    if (keyCode == DOWN) {
+      intSpeed = 2;
+    }
+  }
+
+  public void mousePressed() {
+    mouseClicked = true;
+  }
+
+  public void mouseReleased() {
+    mouseClicked = false;
+  }
+
 }
