@@ -5,20 +5,15 @@ public class Sketch extends PApplet {
   float[] circleX = new float[40];
   float[] circleY = new float[40];
   boolean[] ballHideStatus = new boolean[40];
-
   int intSpeed = 4;
-
   float playerX = 400;
   float playerY = 400;
-
   boolean upPress = false;
   boolean downPress = false;
   boolean leftPress = false;
   boolean rightPress = false;
-
   boolean alive = true;
   int lives = 3;
-
   boolean mouseClicked = false;
 
   /**
@@ -60,18 +55,18 @@ public class Sketch extends PApplet {
           circleY[i] += intSpeed;
         }
     
-        // resets snowball once it reaches end of screen
+        // resets snowball after the end of screen
         if (circleY[i] > height - 25) {
           circleY[i] = 0;
         }
 
-        // if player circle collides with snowball, stop drawing snowball to screen and remove 1 life
+        // stops drawing snowballs to screen and remove 1 life if player collides
         if (dist(playerX, playerY, circleX[i], circleY[i]) <= 37.5 && ballHideStatus[i] == false) {
           ballHideStatus[i] = true;
           lives--;
         }
         
-        // if snowball is clicked, stop drawing snowball to screen
+        // gets rid of the snowball if clicked by the mouse
         if (dist(mouseX, mouseY, circleX[i], circleY[i]) <= 25 && mouseClicked) {
             ballHideStatus[i] = true;
         }
