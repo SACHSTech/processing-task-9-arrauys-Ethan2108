@@ -5,7 +5,7 @@ public class Sketch extends PApplet {
   float[] circleX = new float[40];
   float[] circleY = new float[40];
   boolean[] ballHideStatus = new boolean[40];
-  int intSpeed = 4;
+  int intSpeed = 3;
   float playerX = 400;
   float playerY = 400;
   boolean upPress = false;
@@ -73,26 +73,26 @@ public class Sketch extends PApplet {
         
       }
 
-      fill(168, 209, 223);
+      fill(3, 252, 252);
 
       // draw player circle
-      ellipse(playerX, playerY, 25, 25);
+      ellipse(playerX, playerY, 40, 40);
       
       // keyboard controls for player using w, a, s, d
       if (leftPress) {
-        playerX += -5;
+        playerX += -3;
       }
       if (rightPress) {
-        playerX += 5;
+        playerX += 3;
       }
       if (upPress) {
-        playerY += -5;
+        playerY += -3;
       }
       if (downPress) {
-        playerY += 5;
+        playerY += 3;
       }
   
-      fill(246, 7, 17);
+      fill(252, 3, 3);
 
       // draw three squares to indicate player intLives
       for (int i = 1; i <= lives; i++) {
@@ -111,7 +111,7 @@ public class Sketch extends PApplet {
   }
 
   
-  // define other methods down here.
+  // key code functions to move the player around or/and adjust the speed
 
   public void keyPressed() {
     if (key == 'a')  {
@@ -131,7 +131,7 @@ public class Sketch extends PApplet {
       intSpeed = 2;
     }
     if (keyCode == DOWN) {
-      intSpeed = 6;
+      intSpeed = 5;
     }
   }
 
@@ -150,11 +150,11 @@ public class Sketch extends PApplet {
     }
 
     if (keyCode == UP) {
-      intSpeed = 2;
+      intSpeed = 3;
     }
     
     if (keyCode == DOWN) {
-      intSpeed = 2;
+      intSpeed = 3;
     }
   }
 
