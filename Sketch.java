@@ -2,9 +2,9 @@ import processing.core.PApplet;
 
 public class Sketch extends PApplet {
 
-  float[] circleX = new float[40];
-  float[] circleY = new float[40];
-  boolean[] ballHideStatus = new boolean[40];
+  float[] circleX = new float[50];
+  float[] circleY = new float[50];
+  boolean[] ballHideStatus = new boolean[50];
   int intSpeed = 3;
   float playerX = 400;
   float playerY = 400;
@@ -41,7 +41,7 @@ public class Sketch extends PApplet {
    */
   public void draw() {
 
-    // check to see if player is still alive
+    // check to see if player is alive
     if (alive == true) {
       background(0);
     
@@ -78,7 +78,7 @@ public class Sketch extends PApplet {
       // draw player circle
       ellipse(playerX, playerY, 40, 40);
       
-      // keyboard controls for player using w, a, s, d
+      // controlling the player using w, a, s, d
       if (leftPress) {
         playerX += -3;
       }
@@ -94,7 +94,7 @@ public class Sketch extends PApplet {
   
       fill(252, 3, 3);
 
-      // draw three squares to indicate player intLives
+      // three squares to indicate the number of lives the player has
       for (int i = 1; i <= lives; i++) {
         rect(70 * i, 50, 50, 50);
       }
@@ -104,7 +104,7 @@ public class Sketch extends PApplet {
       }
     }
 
-    // screen clears to white when all lives are lost
+    // clearing the screen to white when all lives are lost
     else {
       background(255);
     }
@@ -158,6 +158,7 @@ public class Sketch extends PApplet {
     }
   }
 
+  // mouse functions
   public void mousePressed() {
     mouseClicked = true;
   }
